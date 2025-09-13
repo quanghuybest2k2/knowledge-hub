@@ -2,8 +2,19 @@ import dotenv from "dotenv";
 import { MezonClient } from "mezon-sdk";
 import fs from "fs/promises";
 import path from "path";
+import http from "http";
 
 dotenv.config();
+
+const PORT = process.env.PORT || 3000;
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("✅ Bot is running!\n");
+  })
+  .listen(PORT, () => {
+    console.log(`🌐 Healthcheck server running on port ${PORT}`);
+  });
 
 const NOTE_FILE = path.join(process.cwd(), "data", "note.md");
 const SOL_FILE = path.join(process.cwd(), "data", "solution.md");
